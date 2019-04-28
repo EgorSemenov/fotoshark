@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="HTML, BSU training, prototypes,fotoshark">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="mainCSS.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Fotoshark-Лента</title>
+  </head>
+  <body>
+  	<div class ="header">
+	  	<div class="header1">
+	  		<img class="logo h" src="shark.png"></img>
+	  		<div class="nameOfprogram h txt">fotoshark</div>
+	  	</div>
+
+  		<div class="header2">
+			<div id = "nameContainer" class="nameOfuser h txt">
+	  			<template id = "NameOfuser"><div id="dnameOfuser"></div></template>
+	  		</div>
+	  		<div id = "avatarContainer" class="Avatar">
+	  			<template id = "AvatarOfuser"><img id="avatarOfuser" class="avatar" src=""></img></template>
+	  		</div>
+  		</div>
+  	</div>	
+
+  	<div class="main" id="Main">
+
+			<form class="filter" action="" method="get">
+	  				<input name="search" class="txt" id="placeSearch" placeholder="for search..." type="text">
+	  				<button class="find" id="search" type="button"></button>
+			</form>
+
+			<div id="tape" class="Tape">
+				<template id="layout-post-template">
+					<div class="layout-post" >
+							<div class="partOfpost above-the-photo" >
+								<img id="PhotoA" class="author above" data-id=""  src=""></img>
+								<div class="above txt"><span id="nameAuthor" style="white-space: nowrap"></span></div>
+								<div class="above txt"><span id="date" style="white-space: nowrap"> </span></div>
+							</div>
+
+							<div class="partOfpost picture">
+								<img id="Photo" src="">
+							</div>
+							<img id = "pen"  class="pen" src="pen.png">
+							<img id = "rubbish" class="rubbish" src="rubbish.png">
+							<div class="partOfpost under-the-photo">
+								<div id="likes" class="counter under"><span id = "likess" style="white-space: nowrap"></span></div>
+								<div class="like under">
+									<img class="blike" id="like" src="like.png">
+								</div>
+								<div class="comment under">
+									<img class="bcomment" src="comment.png">
+								</div>
+							</div>
+
+							<div id="info&hTags" class="partOfpost info txt"></div>
+					</div>
+				</template>
+				
+			</div>
+
+				<div class="layout-menu">
+					<div class="elOfmenu">
+			 			<img class="tape" src="tape.png"></img>
+					</div>
+					<div class="elOfmenu">
+						<img class="plus" id="Plus" src="plus.png"></img>
+					</div>
+					<div class="elOfmenu">	
+			 			<img class="log" id="lg" src="log.png"></img>
+					</div>
+				</div>	
+				<div class="mainbackground"> 
+					<img class="mainbiglogo" src="shark.png"></img>
+				</div>	
+	</div>
+
+	<div class="login" id="Login">
+		<div class="background"> 
+			<img class="biglogo" src="shark.png"></img>
+				<form class="logIn" action="" method="get">
+					<input type="text" name="ilogin" id="name" class="txt input" placeholder="login">
+					<input type="password" name="ipassword" size="7" class="txt input" placeholder="password">
+					<button class="buttonlogin txt" id="log" type="button">Log in</button>
+				</form>
+					<button class="buttonNewAcc txt" type="button">New account</button>
+		</div>
+	</div>
+
+<div class="create">
+		<div class="background">
+			<div class = "label txt">Creating Account</div>
+			<img class="biglogo" src="shark.png"></img>
+				<form class="logIn" action="" method="get">
+					<input type="text" name="ilogin" class="txt input" placeholder="login">
+					<input type="text" name="ipassword" size="7" class="txt input" placeholder="password">
+                    <input type="file" name="forFile" id="fileLinkC" class="inputFile">
+                    <label for="fileLinkC" class = "txt labelFile">Avatar</label>
+				</form>
+					<button class="buttonNewAcc txt" id = "newAcc" type="button">Create</button>
+		</div>
+	</div>
+
+    <div class="error" id = "ErrorLog">
+            <div class="background">
+                <div class="erMessage txt"><p>Ошибка: неверный логин или пароль</p></div>
+                <img class="iEr" src="error.png"></img>
+                <button class="buttonNewAcc txt" id="erL" type="button">Вернуться назад</button>
+            </div>
+    </div>
+
+	<div class="error" id = "ErrorAdd">
+		<div class="background">
+			<div class="erMessage txt"><p>Что-то пошло не так - ошибка</p></div>
+			<img class="iEr" src="error.png"></img>
+			<button class="buttonNewAcc txt" id="erA" type="button">Вернуться назад</button>
+		</div>
+	</div>
+
+	<div class="error" id = "ErrorRedact">
+		<div class="background">
+			<div class="erMessage txt"><p>Что-то пошло не так - ошибка</p></div>
+			<img class="iEr" src="error.png"></img>
+			<button class="buttonNewAcc txt" id="erR" type="button">Вернуться назад</button>
+		</div>
+	</div>
+
+    <div class="accepted" id="Accept">
+        <div class="background">
+            <div class="erMessage txt"><p>Аккаунт создан успешно</p></div>
+            <img class="iEr" src="accepted.png"></img>
+            <button class="buttonNewAcc txt" type="button">Перейти к фотоленте</button>
+        </div>
+    </div>
+
+	<div class="redact" id="redact">
+		<div class="background">
+				<div class = "label txt">Redacting</div>
+				<img  id = "iredact" class="biglogo" src=""></img>
+				<form class="logIn" action="" method="get">
+                    <input type="file" name="forFile" id="fileLinkR" class="inputFile">
+                    <label for="fileLinkR" class = "txt labelFile" id="labelFileR">Choose a file</label>
+					<textarea  class = "DescriptArrea txt" id="descript" placeholder = "Description"></textarea>
+				</form>
+					<button class="buttonNewAcc txt" id="accepted" type="button">Accept</button>
+					<button class="buttonlogin txt toMain" id="toMainFromR" type="button">На главную</button>
+		</div>
+	</div>
+
+	<div class="add" id="Add">
+		<div class="background">
+			<div class = "label txt">Adding</div>
+			<img  id = "iAdd" class="biglogo" src=""></img>
+				<form class="logIn" action="" method="get">
+                    <input type="file" name="forFile" id="fileLinkA" class="inputFile">
+                    <label for="fileLinkA" class = "txt labelFile" id="labelFileA">Choose a file</label>
+					<textarea  class = "DescriptArrea txt" id="description" placeholder = "Description"></textarea>
+				</form>
+					<button disabled="true" class="buttonNewAcc txt" id="bAdd" type="button">Add</button>
+					<button class="buttonlogin txt toMain" id="toMain" type="button">На главную</button>
+		</div>
+	</div>
+	<footer><p>Егор Семёнов<br>5 группа<br>wildworld2727@tut.by<p></footer>
+  </body>
+  <script src="../realization.js" defer></script>
+</html>
