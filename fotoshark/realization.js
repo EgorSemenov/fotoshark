@@ -402,6 +402,7 @@ class ControllerFotoshark
             elementLabel.innerText = elementInput.files[0].name;
             img.setAttribute('src',elementInput.files[0].name);
             bAdd.disabled = "";
+            elementInput.value = "";
             elementInput.addEventListener('change',handle);
         };
         elementInput.addEventListener('change',handle);
@@ -425,6 +426,7 @@ class ControllerFotoshark
         {
             elementLabel.innerText = elementInput.files[0].name;
             img.setAttribute('src',elementInput.files[0].name);
+            elementInput.value = "";
         };
         elementInput.addEventListener('change',handle);
     }
