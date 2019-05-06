@@ -49,8 +49,6 @@ class ControllerFotoshark
             v.authorization(user);
             this.makeControllerLikes();
         }
-
-        //this.toEdit = new Node();
     }
    static parse(photoPosts)
     {
@@ -59,28 +57,33 @@ class ControllerFotoshark
         });
         return photoPosts;
     }
+    makeControllers()
+    {
+        this.makeSearchController();
+        this.makeControllerToAuth();
+        this.makeControllerToAdd();
+        this.makeControllerAdd();
+        this.makeControllerInput();
+        this.makeControllerErrorL();
+        this.makeControllerErrorA();
+    }
     makeControllerLogin()
     {
         let c = this;
         let cView = this.view;
         let elementLog = document.getElementById("Login");
         let elementMain = document.getElementById("Main");
-        //let elementErrorL = document.getElementById('ErrorL'); //// когда появится неверный пароль добавить его
         let elementPlace = document.getElementById('placeSearch');
         let collection = this.collection;
         let currentCollection = this.currentCollection;
         let handle = function()
         {
-            //console.log(collection);
-            //console.log(currentCollection);
             let user = {};
             user.name = document.getElementById('name').value;
-           // alert(user.name);
-
                 cView.removeAll(currentCollection.getLength());
                 currentCollection.removeAll();
                 currentCollection.addAll(collection);
-                cView.addAll(currentCollection/*,currentCollection.getLength()*/);
+                cView.addAll(currentCollection);
                 c.makeControllerToEdit();
                 c.makeControllerDelete();
                 user.picture = 'Dpunk.jpg';// пока так, потом будет браться с сервера
@@ -97,15 +100,10 @@ class ControllerFotoshark
     makeControllerToAuth()
     {
         let c = this;
-        //let cView = this.view;
         let elementLog = document.getElementById("Login");
         let elementMain = document.getElementById("Main");
-       // let collection = this.collection;
-        //let currentCollection = this.currentCollection;
         let handle = function()
         {
-            /*console.log(collection);
-            console.log(currentCollection);*/
             elementLog.style.display="block";
             elementMain.style.display="none";
             c.makeControllerLogin();
@@ -163,7 +161,6 @@ class ControllerFotoshark
                     } else {
                         CurrCollection.removeAll();
                         CurrCollection.addAll(new PostCollection(cCollection.getPage(0, cCollection.getLength(), {author: value})));
-                       // CurrCollection._photoPosts =  CurrCollection.getPage(0,CurrCollection._photoPosts.length);
                         CurrCollection.save();
                         let ind = 0;
                         CurrCollection._photoPosts.forEach(function (item, i, p) {
@@ -222,11 +219,7 @@ class ControllerFotoshark
         let elementInput = document.getElementById("fileLinkR");
         let elementDes = document.getElementById("description");
         let elementErS = document.getElementById("ErrorAdd");
-        //let img = document.getElementById('iAdd');
         let c = this;
-        //let author = this.view.username.username;
-        //console.log(this.view.username.username);
-        //console.log(author);
         let handle2 = function()
         {
             elementAdd.style.display = "none";
@@ -273,7 +266,6 @@ class ControllerFotoshark
                     cCurrentCollection.add(photopost);
                     cCurrentCollection._photoPosts =  cCurrentCollection.getPage(0,cCurrentCollection._photoPosts.length);
                     cCollection._photoPosts =  cCollection.getPage(0,cCollection._photoPosts.length);
-                    //cCurrentCollection.getPage(0,cCurrentCollection.getLength());
                     cCurrentCollection.save();
                     cCollection.saveCol();
                     let ind = 0;
@@ -295,7 +287,6 @@ class ControllerFotoshark
                 }
             bAdd.disabled = "disabled";
             elementLabel.innerText = "Choose file";
-            //elementInput.files[0].name="";
         };
         let bAdd = document.getElementById("bAdd");
         let toMain = document.getElementById("toMain");
@@ -312,7 +303,6 @@ class ControllerFotoshark
         let c = this;
         let handle = function(event)
         {
-            //v = event.target.parentElement;
             elementRedact.style.display = "block";
             elementMain.style.display = "none";
             let fr = document.createDocumentFragment();
@@ -335,7 +325,6 @@ class ControllerFotoshark
         let elementMain = document.getElementById("Main");
         let elementDescription = document.getElementById("descript");
         let img = document.getElementById('iredact');
-        //let elementLabel = document.getElementById("labelFileA");
         img.setAttribute('src',cC._photoPosts[Node.getElementById("PhotoA").getAttribute("data-id")].photoLink);
         let str="";
         cC._photoPosts[Node.getElementById("PhotoA").getAttribute("data-id")].hashTags.forEach(function(item)
@@ -351,7 +340,6 @@ class ControllerFotoshark
         let handle1 = function()
         {
             let ind = Node.getElementById("PhotoA").getAttribute("data-id");
-           // cC._photoPosts[Node.getElementById("PhotoA").getAttribute("data-id")].photoLink = elementLabel.innerText;
             let hashtagsAndDes =  elementDescription.value.split(' ');
             cC._photoPosts[ind].hashTags =[];
             cC._photoPosts[ind].description = "";
@@ -387,16 +375,6 @@ class ControllerFotoshark
         let elementInput = document.getElementById("fileLinkA");
         let img = document.getElementById('iAdd');
         let bAdd = document.getElementById("bAdd");
-       /* let handle = function()
-        {
-            elementLabel.innerText = elementInput.files.item(0).name;
-        };
-        elementInput.addEventListener('onchange',handle);*/
-        /*elementInput.onchange = function(e) {
-            //console.log(elementInput.files.item(0).name);
-            //console.log(this.value);
-            elementLabel.innerText = elementInput.files.item(0).name;
-        };*/
         let handle = function()
         {
             elementLabel.innerText = elementInput.files[0].name;
@@ -411,17 +389,7 @@ class ControllerFotoshark
     {
         let elementLabel = document.getElementById("labelFileR");
         let elementInput = document.getElementById("fileLinkR");
-        let img = document.getElementById('iredact');
-        /* let handle = function()
-         {
-             elementLabel.innerText = elementInput.files.item(0).name;
-         };
-         elementInput.addEventListener('onchange',handle);*/
-        /*elementInput.onchange = function(e) {
-            //console.log(elementInput.files.item(0).name);
-            //console.log(this.value);
-            elementLabel.innerText = elementInput.files.item(0).name;
-        };*/
+        let img = document.getElementById('iredact')
         let handle = function()
         {
             elementLabel.innerText = elementInput.files[0].name;
@@ -504,15 +472,11 @@ class ControllerFotoshark
                 let node = event.target.parentElement.parentElement.parentElement.cloneNode(true);
                 fr.appendChild(node);
                 let ind = fr.getElementById('PhotoA').getAttribute('data-id');
-                // if(cV.username!= node.getElementById('nameAuthor').innerText)
-                //{
                 if (cC._photoPosts[ind].likes.indexOf(cV.username) == -1) {
-                    // C._photoPosts[ind].likes.push(cV.username);
                     cC._photoPosts[ind].likes.push(cV.username);
                     cV.editPhotopost(ind, cC._photoPosts[ind]);
                     C.edit(cC._photoPosts[cC._photoPosts[ind].id], cC._photoPosts[ind]);
                     cC.save();
-                    //C._photoposts = cC._photoPosts;
                     C.saveCol();
                     th.makeControllerToEdit();
                     th.makeControllerDelete();
@@ -528,7 +492,6 @@ class ControllerFotoshark
 
                 }
                 th.makeControllerLikes();
-                // }
             }
             else
             {
@@ -571,8 +534,6 @@ class ViewPage
                     let newAva = document.importNode(templateAva.content, true);
                     newName.getElementById('dnameOfuser').innerText = user.name;
                     newAva.getElementById('avatarOfuser').setAttribute("src", user.picture);
-                    //document.getElementById('nameContainer').appendChild(newName);
-                    //document.getElementById('avatarContainer').appendChild(newAva);
                     const nameCont = document.getElementById('nameContainer');
                     const avatarCont = document.getElementById('avatarContainer');
                     nameCont.removeChild(nameCont.lastChild);
@@ -598,10 +559,7 @@ class ViewPage
                             }
                         });
                     }
-               // Object.defineProperty(this.username,'username',{value:user.name.slice()});
                 this.username = user.name.slice();
-                //this.username = Object.assign(this.username,user.name);
-               // console.log(this.username);
                 if (user.name === "")
                 {
                     this.ifAuthorization = false;
@@ -622,8 +580,6 @@ class ViewPage
            newAva.getElementById('avatarOfuser').setAttribute("src","empty.png");
             document.getElementById('nameContainer').appendChild(newName);
             document.getElementById('avatarContainer').appendChild(newAva);
-           /*document.getElementById('nameContainer').replaceChild(newName,document.getElementById('dnameOfuser'));
-            document.getElementById('avatarContainer').replaceChild(newAva,document.getElementById('avatarOfuser'));*/
            this.username = "";
            this.ifAuthorization = false;
         }
@@ -632,10 +588,7 @@ class ViewPage
     {
         const template = document.getElementById('layout-post-template');
         let newPhotopost = document.importNode(template.content,true);
-        //newPhotopost.setAttribute('number',i.toString());
         newPhotopost.getElementById('nameAuthor').innerText = photopost.author;
-       // let i = 2;
-       // let toString = i.toString;
         if(this.username!=photopost.author)
         {
             newPhotopost.getElementById('pen').style.display="none";
@@ -644,7 +597,6 @@ class ViewPage
         newPhotopost.getElementById('Photo').setAttribute("src",photopost.photoLink);
         newPhotopost.getElementById('PhotoA').setAttribute("data-id",i);
         newPhotopost.getElementById('PhotoA').setAttribute("src",photopost.photoLinkAuthor);
-       // newPhotopost.getElementById('date').innerText = photopost.createdAt.getMonth()+1+"."+photopost.createdAt.getDate();
         newPhotopost.getElementById('date').innerText = photopost.createdAt.toLocaleString("ru", this.options);
         let str ="";
         photopost.hashTags.forEach(function(item)
@@ -818,7 +770,6 @@ class PostCollection {
     }
     static restore()
     {
-        //localStorage.setItem('ifRestore',JSON.stringify('true'));
         let  p = new PostCollection([
             {
                 id: '0',
@@ -852,40 +803,8 @@ class PostCollection {
             },
         ]);
         p._photoPosts = p.getPage(0,p._photoPosts.length);
-        localStorage.setItem('photoPosts', JSON.stringify(/*[
-            {
-                id: '0',
-                description: 'Джанго',
-                createdAt: new Date('2017-02-21T21:00:00'),
-                author: 'Semenov',
-                photoLink: 'realman.jpg',
-                photoLinkAuthor: 'Dpunk.jpg',
-                hashTags: ['#лучший', '#туда его'],
-                likes: ['Ann', 'Егор','g','a'],
-            },
-             {
-                 id: '1',
-                 description: 'Джанго2',
-                 createdAt: new Date('2019-02-22T22:00:00'),
-                 author: 'Egor',
-                 photoLink: 'realman.jpg',
-                 photoLinkAuthor: 'Dpunk.jpg',
-                 hashTags: ['#лучший', '#туда егоо'],
-                 likes: ['Ann', 'Егор']
-             },
-             {
-                 id: '2',
-                 description: 'Джанго Отредаченный',
-                 createdAt: new Date('2018-02-23T23:00:00'),
-                 author: 'EgorSemenov',
-                 photoLink: 'realman.jpg',
-                 photoLinkAuthor: 'Dpunk.jpg',
-                 hashTags: ['#мгла', '#горнолыжник'],
-                 likes: ['God', 'Tarantino']
-             },
-         ])*/p._photoPosts));
+        localStorage.setItem('photoPosts', JSON.stringify(p._photoPosts));
 
-        // localStorage.setItem('currentCollection',JSON.stringify([]));
  }
  getLength()
  {
@@ -919,7 +838,6 @@ class PostCollection {
      });
 
      photoPostsFiltered = photoPostsFiltered.slice(skip,skip+top);
-     //console.log(photoPostsFiltered);
      return photoPostsFiltered;
  }
 
@@ -976,14 +894,6 @@ class PostCollection {
              invalidPosts.push(phPost);
          }
      });
-    /* for (let i = 0; i < photoPosts._photoPosts.length; i++)
-     {
-         if (!this.add(photoPosts._photoPosts[i]))
-         {
-             invalidPosts.push(photoPosts._photoPosts[i]);
-         }
-     }
-*/
         return invalidPosts;
     }
 
@@ -1081,104 +991,13 @@ class PostCollection {
         this.length = 0;
     }
 }
-    /*let photoPosts = new PostCollection([
-        {
-            id: '0',
-            description: 'Джанго',
-            createdAt: new Date('2357-02-21T21:00:00'),
-            author: 'Semenov',
-            photoLink: 'realman.jpg',
-            photoLinkAuthor: 'Dpunk.jpg',
-            hashTags: ['#лучший', '#туда его'],
-            likes: ['Ann', 'Егор','g','a'],
-        },
-        {
-            id: '1',
-            description: 'Джанго2',
-            createdAt: new Date('2357-02-22T22:00:00'),
-            author: 'Egor',
-            photoLink: 'realman.jpg',
-            photoLinkAuthor: 'Dpunk.jpg',
-            hashTags: ['#лучший', '#туда егоо'],
-            likes: ['Ann', 'Егор']
-        },
-        {
-            id: '2',
-            description: 'Джанго Отредаченный',
-            createdAt: new Date('2357-02-23T23:00:00'),
-            author: 'EgorSemenov',
-            photoLink: 'realman.jpg',
-            photoLinkAuthor: 'Dpunk.jpg',
-            hashTags: ['#мгла', '#горнолыжник'],
-            likes: ['God', 'Tarantino']
-        },
-    ]);
-photopost1 =
-{
-    id: '0',
-    description: 'Джанго',
-    createdAt: new Date('2357-02-21T21:00:00'),
-    author: 'Semenov',
-    photoLink: 'realman.jpg',
-    photoLinkAuthor: 'Dpunk.jpg',
-    hashTags: ['#лучший', '#туда его'],
-    likes: ['Ann', 'Егор','g','a'],
-};
-photopost2 = {
-    id: '1',
-    description: 'Джанго2',
-    createdAt: new Date('2357-02-22T22:00:00'),
-    author: 'Egor',
-    photoLink: 'realman.jpg',
-    photoLinkAuthor: 'Dpunk.jpg',
-    hashTags: ['#лучший','#туда егоо'],
-    likes:['Ann','Егор']
-};
-photopost3 =
-    {
-        id: '2',
-        description: 'Джанго Отредаченный',
-        createdAt: new Date('2357-02-23T23:00:00'),
-        author: 'EgorSemenov',
-        photoLink: 'realman.jpg',
-        photoLinkAuthor: 'Dpunk.jpg',
-        hashTags: ['#мгла', '#горнолыжник'],
-        likes: ['God', 'Tarantino']
-    };*/
-    /*photoPosts.edit(0,{description: 'Новое описание'});
-    let v = new ViewPage();
-    let user ={};
-    user.name = "Semenovv";
-    user.picture = "Dpunk.jpg";
-    v.addPhotopost(photopost1);
-    v.addPhotopost(photopost2);
-    v.authorization(user);
-    v.editPhotopost(1,{author:['kkk']});*/
 
-//PostCollection.restore();
 PostCollection.restore();
 window.onload = function() {
     let c = new ControllerFotoshark();
-    c.makeSearchController();
-    c.makeControllerToAuth();
-    c.makeControllerToAdd();
-    c.makeControllerAdd();
-    c.makeControllerInput();
-    c.makeControllerErrorL();
-    c.makeControllerErrorA();
-    /*let v = new ViewPage();
-    c.currentCollection._photoPosts.forEach(function (item, i, p) {
-        v.addPhotopost(item);
-    });*/
+   c.makeControllers();
 };
 
-   /* v.addPhotopost(photopost1);
-    v.addPhotopost(photopost2);
-    v.addPhotopost(photopost3);*/
-    /*let p =new PostCollection( photoPosts.getPage(0,photoPosts.getLength(),{hashTags:['#мгла']}));
-    p._photoPosts.forEach(function (item,i,p) {
-        v.addPhotopost(item);
-    });*/
-   //v.authorization();
+
 
 
