@@ -1,0 +1,1 @@
+SELECT * FROM imagewind.photo_post WHERE USER_ID=(SELECT USER_ID FROM imagewind.user WHERE NAME='Egor') AND CREATED_AT='2019-05-01';

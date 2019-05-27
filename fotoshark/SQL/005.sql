@@ -1,0 +1,1 @@
+SELECT user.NAME AS 'Users' FROM user , photo_post WHERE user.USER_ID = photo_post.USER_ID GROUP BY user.USER_ID HAVING COUNT(photo_post.USER_ID) > 3;

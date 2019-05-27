@@ -1,0 +1,1 @@
+SELECT * FROM imagewind.photo_post order by CREATED_AT desc;
